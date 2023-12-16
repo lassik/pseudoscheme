@@ -5,7 +5,6 @@
 
 (in-package "CL-USER")  ;stifle warnings from compiler/loader
 
-
 ; The SCHEME package is where Scheme symbols live.
 
 (defpackage "SCHEME"
@@ -16,9 +15,7 @@
 
 (defpackage "PS"
   (:nicknames "PS-LISP" "PSEUDOSCHEME")
-  (:use #.(if (find-package "COMMON-LISP") ;Avoid pollution.
-	      "COMMON-LISP"
-	      "LISP"))
+  (:use "COMMON-LISP")
   (:export "SET!-AUX"
 	   "SET-FUNCTION-FROM-VALUE"
 	   "SET-VALUE-FROM-FUNCTION"
@@ -215,7 +212,7 @@
 	   "IMPORT"
 	   "IN-PACKAGE"
 	   "INTEGERP"
-	   "INTERN"
+	   ;; "INTERN"                 ;++ ABCL lossage
 	   "LABELS"
 	   "LAMBDA"
 	   "LAST"
@@ -353,11 +350,7 @@
 	   "SIMPLE-VECTOR-P"
 	   ))
 
-; Lose
+;++ ABCL lossage
 
-(defpackage "CLEVER-LOAD"
-  (:use #.(if (find-package "COMMON-LISP") ;Avoid pollution.
-	      "COMMON-LISP"
-	      "LISP"))
-  (:export "CLEVER-LOAD"
-	   "*COMPILE-IF-NECESSARY-P*"))
+(let ((*package* (find-package "PS")))
+  (export (intern "INTERN")))

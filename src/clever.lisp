@@ -57,6 +57,7 @@
       #+LispWorks "fsl"
       #+allegro "fasl"
       #+(and cmu hpux) "hpf"
+      #+cmu (pathname-type (compile-file-pathname "whatever"))
       #+abcl "abcl"
       ))   ;(or) => nil otherwise
 
@@ -169,4 +170,3 @@
 				 ~%but loading source because it's newer.~%"
 				(namestring obj?))
 			(load-it src?)))))))))
-
